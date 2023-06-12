@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -8,25 +8,38 @@ import { Button } from './Button/Button';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
 import { ErrorMessage, Text } from './ErrorMessage/ErrorMessage';
-export class App extends Component {
-  state = {
-    searchName: '',
-    images: [],
-    isLoading: false,
-    error: null,
-    page: 1,
-    isEmpty: false,
-    isShownButton: false,
-    perPage: 12,
-  };
+export default function App () {
+  // state = {
+  //   searchName: '',
+  //   images: [],
+  //   isLoading: false,
+  //   error: null,
+  //   page: 1,
+  //   isEmpty: false,
+  //   isShownButton: false,
+  //   perPage: 12,
+  // };
+  const [searchName, setSearchName] = useState("");
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isShownButton, setIsShownButton] = useState(false);
+  const [perPage, setPerPage] = useState(12);
+  
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { searchName, page } = this.state;
 
-  componentDidUpdate(prevProps, prevState) {
-    const { searchName, page } = this.state;
+  //   if (prevState.searchName !== searchName || prevState.page !== page) {
+  //     this.loadImages(searchName, page);
+  //   }
+  // }
+  
+  useEffect(() => {
+  loadImages(searchName, page);
+  },[searchName, page]);
 
-    if (prevState.searchName !== searchName || prevState.page !== page) {
-      this.loadImages(searchName, page);
-    }
-  }
 
   loadImages = async (searchName, page) => {
     this.setState({ isLoading: true, error: null });
@@ -63,14 +76,15 @@ export class App extends Component {
     });
   };
 
-  handleButtonLoadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+  const handleButtonLoadMore = () => {
+    // this.setState(prevState => ({
+    //   page: prevState.page + 1,
+    // }));
+    setPage(prevState => prevState + 1 )
   };
 
-  render() {
-    const { images, isLoading, error, isEmpty, isShownButton } = this.state;
+  // render() {
+  //   const { images, isLoading, error, isEmpty, isShownButton } = this.state;
     return (
       <Layout>
         <GlobalStyle />
@@ -80,7 +94,7 @@ export class App extends Component {
 
         <>
           <ImageGallery items={images} />
-          {isShownButton && <Button onClick={this.handleButtonLoadMore} />}
+          {isShownButton && <Button onClick={handleButtonLoadMore} />}
         </>
 
         {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -88,4 +102,4 @@ export class App extends Component {
       </Layout>
     );
   }
-}
+

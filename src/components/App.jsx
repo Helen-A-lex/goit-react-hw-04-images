@@ -42,38 +42,52 @@ export default function App () {
 
 
   loadImages = async (searchName, page) => {
-    this.setState({ isLoading: true, error: null });
+    // this.setState({ isLoading: true, error: null });
+    setIsLoading(true);
+    setError(null);
     try {
       const { hits, totalHits } = await API.getImages(searchName, page);
       if (!hits.length) {
-        this.setState({ isEmpty: true });
+        // this.setState({ isEmpty: true });
+        setIsEmpty(true);
         return;
       }
-      this.setState(prevState => ({
-        images: [...prevState.images, ...hits],
-        page,
-        isShownButton: page < Math.ceil(totalHits / this.state.perPage),
-      }));
+      // this.setState(prevState => ({
+      //   images: [...prevState.images, ...hits],
+      //   page,
+      //   isShownButton: page < Math.ceil(totalHits / this.state.perPage),
+      // }));
+      setImages(prevState => [...prevState.images, ...hits]);
+      setPage(page);
+      setIsShownButton(page < Math.ceil(totalHits / this.state.perPage));
     } catch (error) {
       if (error.code !== 'ERR_CANCELED') {
-        this.setState({
-          error: 'Oops! Something went wrong! Try reloading the page!',
-        });
+        // this.setState({
+        //   error: 'Oops! Something went wrong! Try reloading the page!',
+        // });
+        setError('Oops! Something went wrong! Try reloading the page!');
       }
     } finally {
-      this.setState({ isLoading: false });
+      // this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  handleSearch = searchName => {
-    this.setState({
-      searchName,
-      images: [],
-      page: 1,
-      isShownButton: false,
-      isEmpty: false,
-      error: null,
-    });
+ const handleSearch = searchName => {
+    // this.setState({
+    //   searchName,
+    //   images: [],
+    //   page: 1,
+    //   isShownButton: false,
+    //   isEmpty: false,
+    //   error: null,
+    // });
+   setSearchName(searchName);
+   setImages([]);
+   setPage(1);
+   setIsShownButton(false);
+   setIsEmpty(false);
+   setError(null);
   };
 
   const handleButtonLoadMore = () => {
@@ -89,7 +103,7 @@ export default function App () {
     return (
       <Layout>
         <GlobalStyle />
-        <Searchbar onSubmit={this.handleSearch} />
+        <Searchbar onSubmit={handleSearch} />
         {isEmpty && <Text>Sorry. There are no images ... </Text>}
         {isLoading && <Loader />}
 

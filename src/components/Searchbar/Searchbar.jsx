@@ -11,7 +11,7 @@ import {
 } from './Searchbar.styled';
 import { ImSearch } from 'react-icons/im';
 
-export default function Searchbar (){
+export default function Searchbar ({onSubmit}){
  
 const [searchName, setSearchName] = useState("");
 
@@ -29,16 +29,18 @@ const [searchName, setSearchName] = useState("");
       );
       return;
     }
-    this.props.onSubmit(this.state.searchName);
-    reset();
+    // this.props.onSubmit(this.state.searchName);
+    onSubmit(searchName);
+    // reset();
+    setSearchName("")
   };
 
-  const reset = (searchName) => {
-    // this.setState({
-    //   searchName: '',
-    // });
-    setSearchName(searchName)
-  };
+  // const reset = (searchName) => {
+  //   // this.setState({
+  //   //   searchName: '',
+  //   // });
+  //   setSearchName("")
+  // };
 
  
     return (

@@ -15,7 +15,7 @@ const [isModalOpen, setIsModalOpen] = useState("false")
 
   const closeModal = (isModalOpen) => {
     // this.setState({ isModalOpen: false });
-    setIsModalOpen(isModalOpen)
+    setIsModalOpen(false)
   };
 
   

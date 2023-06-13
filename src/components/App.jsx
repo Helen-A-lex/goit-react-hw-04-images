@@ -80,7 +80,8 @@ export default function App () {
     // this.setState(prevState => ({
     //   page: prevState.page + 1,
     // }));
-    setPage(prevState => prevState + 1 )
+    // setPage(prevState => prevState + 1 )
+    setPage(page => page + 1)
   };
 
   // render() {

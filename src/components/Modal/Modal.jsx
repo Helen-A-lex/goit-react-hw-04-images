@@ -25,21 +25,24 @@ Modal.setAppElement('#root');
 
 export const ModalWindow = ({ image, closeModal, isModalOpen }) => {
   return (
-    
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        onAfterOpen={() => disableBodyScroll(document)}
-        onAfterClose={() => enableBodyScroll(document)}
-      >
-        <img src={image.largeImageURL} alt={image.tags} loading="lazy" />
-      </Modal>
-    
+    <Modal
+      isOpen={isModalOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+      onAfterOpen={() => disableBodyScroll(document)}
+      onAfterClose={() => enableBodyScroll(document)}
+    >
+      <img src={image.largeImageURL} alt={image.tags} loading="lazy" />
+    </Modal>
   );
 };
+
 ModalWindow.propTypes = {
-  image: PropTypes.objectOf(PropTypes.string).isRequired,
+  image: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  }).isRequired,
   closeModal: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
 };

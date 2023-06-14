@@ -1,4 +1,4 @@
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImgGallery } from './ImageGallery.styled';
 import PropTypes from 'prop-types';
 export const ImageGallery = ({ items }) => {
@@ -13,5 +13,5 @@ export const ImageGallery = ({ items }) => {
   );
 };
 ImageGallery.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape()).isRequired
-}
+  items: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};

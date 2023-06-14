@@ -11,12 +11,11 @@ import {
 } from './Searchbar.styled';
 import { ImSearch } from 'react-icons/im';
 
-export default function Searchbar ({onSubmit}){
- 
-const [searchName, setSearchName] = useState("");
+export default function Searchbar({ onSubmit }) {
+  const [searchName, setSearchName] = useState('');
 
- const  handleNameChange = evt => {
-   setSearchName(evt.currentTarget.value.toLowerCase());
+  const handleNameChange = evt => {
+    setSearchName(evt.currentTarget.value.toLowerCase());
   };
 
   const handleSubmit = evt => {
@@ -29,38 +28,29 @@ const [searchName, setSearchName] = useState("");
       );
       return;
     }
-    // this.props.onSubmit(this.state.searchName);
+
     onSubmit(searchName);
-    // reset();
-    setSearchName("")
+
+    setSearchName('');
   };
 
-  // const reset = (searchName) => {
-  //   // this.setState({
-  //   //   searchName: '',
-  //   // });
-  //   setSearchName("")
-  // };
+  return (
+    <Search className="searchbar">
+      <SearchForm onSubmit={handleSubmit} className="form">
+        <SearchFormButton type="submit">
+          <ImSearch />
+          <SearchFormBbuttonLabel>Search</SearchFormBbuttonLabel>
+        </SearchFormButton>
 
- 
-    return (
-      <Search className="searchbar">
-        <SearchForm onSubmit={handleSubmit} className="form">
-          <SearchFormButton type="submit">
-            <ImSearch />
-            <SearchFormBbuttonLabel>Search</SearchFormBbuttonLabel>
-          </SearchFormButton>
-
-          <SearchFormInput
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={searchName}
-            onChange={handleNameChange}
-          />
-        </SearchForm>
-      </Search>
-    );
-  }
-
+        <SearchFormInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value={searchName}
+          onChange={handleNameChange}
+        />
+      </SearchForm>
+    </Search>
+  );
+}
